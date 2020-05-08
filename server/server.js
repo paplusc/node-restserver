@@ -1,40 +1,26 @@
 require('./config/config');
-
 const express = require('express');
+const mongoose = require('mongoose');
+
+
 const app = express();
 
 const bodyParser = require('body-parser');
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
+app.use(require('./routes/user'));
 
-app.get('/user', (req, res) => res.json('get User'));
+mongoose.connect(process.env.URLDB, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
+    (err) => {
+        if (err) {
+            throw err;
+        }
+        console.log('Connected to DB');
+    });
 
-app.post('/user', (req, res) => {
-
-    let body = req.body;
-
-    if (body.nombre === undefined) {
-        res.status(400).json({
-            ok: false,
-            message: 'nombre is needed'
-        });
-    } else {
-        res.json({ user: body })
-    }
-});
-
-app.put('/user/:id', (req, res) => {
-    let id = req.params.id;
-    res.json({
-        id
-    })
-});
-
-app.delete('/user', (req, res) => res.json('delete User'));
-
-app.listen(process.env.PORT, () => console.log('Listening port: ', process.env.PORT))
+app.listen(process.env.PORT, () => console.log('Listening port: ', process.env.PORT));
