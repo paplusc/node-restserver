@@ -5,11 +5,7 @@ process.env.PORT = process.env.PORT || 3000;
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 // Expiring token date
-// 60 sec
-// 60 min
-// 24 hours
-// 30 days
-process.env.EXPIRE_TOKEN = 60 * 60 * 24 * 30
+process.env.EXPIRE_TOKEN = '48h'
 
 
 // TOKEN seed

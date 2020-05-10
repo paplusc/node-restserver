@@ -86,7 +86,7 @@ app.put('/user/:id', [verifyToken, verifyAdminRole], (req, res) => {
     });
 });
 
-app.delete('/user/:id', verifyToken, (req, res) => {
+app.delete('/user/:id', [verifyToken, verifyAdminRole], (req, res) => {
 
     let id = req.params.id;
 
